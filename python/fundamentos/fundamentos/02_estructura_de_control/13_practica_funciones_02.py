@@ -24,10 +24,13 @@ def sumatoria_menos_longitud(sumatoria):
     total = sum(sumatoria)
     longitud = len(sumatoria)
     resultado = total - longitud
-    
+    print(f"Suma total = {total}, Longitud = {longitud}")
     return resultado
     
-print(sumatoria_menos_longitud([10, 5, 3, 7]))
+def ejercicio3():
+    retornar = sumatoria_menos_longitud([10, 5, 3, 7])
+    print(f"El resultado del retorno es: {retornar}")
+
 # Suma total = 25, longitud = 4, debe retornar: 21
 
 def valores_multiplicados_segundo(multiplicar):
