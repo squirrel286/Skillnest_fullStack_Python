@@ -1,5 +1,4 @@
 #🎯 MINI DESAFÍO (nivel core)
-
 datos = [
     {"nombre": "Carlos", "puntaje": 80},
     {"nombre": "María", "puntaje": 95},
@@ -12,15 +11,16 @@ print(f"Nombre: {datos[2]["nombre"]} - {datos[2]["puntaje"]}")
 
 # 2. Crear función que imprima:
 #    "Carlos obtuvo 80 puntos"
-def cambiarPuntaje():
-    print(f"{datos[1]["nombre"]} obtuvo {datos[1]["puntaje"]} puntos..")
 
-cambiarPuntaje()
+def cambiarPuntaje():
+    print(f"Nombre: {datos[0]["nombre"]} - Obtuvo: {datos[0]["puntaje"]} puntos")
+
+    cambiarPuntaje()
 
 # 3. Crear función que reciba "nombre" o "puntaje" e imprima solo esos valores
-
-def mostrarDatos(nombre):
+def imprimirDatos(nombre): 
     if nombre == "María":
         print(f"Nombre: {nombre} - puntaje: {datos[1]["puntaje"]} puntos")
 
-mostrarDatos(datos[1]["nombre"])
+imprimirDatos()
+print(f"Nombre: {datos[1]["nombre"]}")
