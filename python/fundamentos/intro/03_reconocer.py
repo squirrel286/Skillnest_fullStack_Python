@@ -4,64 +4,52 @@ Completa los comentarios en cada línea para relacionarlos
 con los conceptos enumerados en 'reconocer.md'.
 """
 
+import random #Importación de libreria para procesos aleatorios
 
-import random # Importación de librería para procesos aleatorios.
+nombre = "Frida Kahlo" #Creación de variable tipo string y se asigna un valor
+print(type(nombre)) #Type() = Método de python para mostrar el tipo de una variable
+print(len(nombre)) #Len() = Devuelve el largo de una variable 
 
+edad = 25 #Creación de variable tipo número(int)
 
-nombre = "Frida Kahlo" # Declaramos variable llamada nombre tipo string y se le asigna un valor.
-print(type(nombre)) # type() = método de python para mostrar el tipo de una variable.
-print(len(nombre)) # len() = Devuelve el largo de la variable.
+if edad < 18: #Se establece condición if.
+    print("Eres menor de edad.") #Imprime un mensaje
+elif edad == 18: #Se establece subcondición elif(else if)
+    print("Tienes 18 años.") #Imprime un mensaje
+else: #Cierre de condición (Si no se cumple las condiciones anteriores)
+    print("Eres mayor de edad.") #Imprime un mensaje
 
+frutas = ["manzana", "pera", "fresa"] # Creación de array con valores ya asignados
+print(frutas[0]) #Mostramos la primera posición del arreglo 
+frutas[0] = "banana" #A la posición 0 del arreglo se le asigna el valor de "banana"
+frutas.append("uva") #Se le agrega "uva" al final del arreglo
+frutas.remove("pera") #Se remueve la palabra "pera" del arreglo
 
-edad = 25 # Declaramos la variable llamada edad con valor numérico (int).
+dimensiones = (200, 50) #Creamos una variable tipo tupla (variable inmutable)
+print(dimensiones[0]) #Imprime la posición 0 de la variable creada
 
-
-
-if edad < 18: # Declaramos la primera condición con el if.
-   print("Eres menor de edad.") # Si edad es menor (>) a 18, se imprime el texto indicándolo.
-elif edad == 18: # Segunda condición con else if (en cambio si...).
-   print("Tienes 18 años.") # Si edad es igual (==) a 18, se imprime el texto diciendo que tiene 18 años.
-else: # Tercera y última condicion else.
-   print("Eres mayor de edad.") # Si no se cumple ninguna de las condiciones anteriores, imprime el mensaje "Eres mayor de edad"
-
-
-frutas = ["manzana", "pera", "fresa"] # Creamos una variable tipo array (arreglo), con 3 valores empezando desde cero (0, 1, 2).
-print(frutas[0]) # Imprime la primera posición (0) del arreglo
-frutas[0] = "banana" # A la primera posición del arreglo se le asigna el valor de "banana"
-frutas.append("uva") # Se le agrega el valor "uva" al final del arreglo.
-frutas.remove("pera") # Se elimina el valor de "pera" en el arreglo.
-
-
-dimensiones = (200, 50) # Creamos una variable tipo tupla (variable inmutable)
-print(dimensiones[0]) # Imprime la posición 0 de la variable creada
-
-
-persona = { # Variable tipo object (objeto) 
-   "nombre": "Carlos", # Se le asigna al ítem "nombre" el valor de "Carlos"
-   "edad": 30 # Se le establece al ítem "edad" el valor de "30"
+persona = { #Variable tipo object (object)
+"nombre": "Carlos", #Se establece un item y su respectivo valor
+"edad": 30 #Se establece un item y su respectivo valor
 }
-print(persona["nombre"]) # Imprime el valor del ítem "nombre"
-persona["edad"] = 31 # Se modifica el valor del ítem "edad" a 31
-persona["ciudad"] = "Santiago" # Se agrega un ítem llamado "ciudad" con el valor de "Santiago"
-del persona["ciudad"] # Borra (delete) el ítem ciudad.
+print(persona["nombre"]) #Imprime el valor del item(ej: "Carlos")
+persona["edad"] = 31 #Se modifica el valor del item edad a 31
+persona["ciudad"] = "Santiago" #Se agrega un nuevo item con un valor
+del persona["ciudad"] #Se elimina el item completo
 
+for i in range(5): #for range: Se crea un bucle en rango 0 a 5
+    if i == 2: #Se establece condicion if == 2
+        continue #continue ignora el proceso y continua.
+if i == 4: #Se establece condicion if == 4
+    #break #Si i = 4 se rompe el bucle
+    print(i) #Imprime valor de i en cada interaccion.(hasta 4)
 
-for i in range(5): # for range: Se crea bucle de un rango hasta 5 comenzando desde 0.
-   if i == 2: # Condición
-       continue # Continue ignora el proceso y continúa.
-   if i == 4: # Segunda condición
-       break # Si i = 4 se rompe el proceso/bucle.
-   print(i) # Imprime el valor de i en cada iteración (hasta el 4).
+contador = 0 # Se crea una variable contador de tipo numerico(int)
+while contador < 3: #Se crea un bucle while con una condicion
+    print(f"while contador es: {contador}") #Imprime el contador en un mensaje concatenado con f"" string
+contador += 1 #Incrementa el valor a 1 en cada iteración
 
+def saludar_usuario(nombre): #def - Palabra reservada para crear una funcion
+    return f"Hola, {nombre}" #Devuelve un valor de la funcion
 
-contador = 0 # Se crea una variable contador de tipo numérica (int).
-while contador < 3: # Se crea el bucle while con una condición
-   print(f"while contador es: {contador}") # Imprimirá el contador en un mensaje concatenado con f""
-   contador += 1 # A contador se le suma uno.
-
-
-def saludar_usuario(nombre): # def - Palabra reservada para crear función
-   return f"Hola, {nombre}" # Devuelve un valor de la función
-
-
-print(saludar_usuario("Francisca")) # Se imprime "Hola Francisca" - return de la función.
+    print(saludar_usuario("Francisca")) #Se imprime "Hola francisca" - return de la función

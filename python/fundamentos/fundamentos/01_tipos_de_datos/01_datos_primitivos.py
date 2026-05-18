@@ -1,20 +1,21 @@
-'''Datos primitivos
+'''
+Datos primitivos 
 Estos son los elementos básicos de un lenguaje. La mayoría
 de los lenguajes comparten estos en común.
 '''
-
-# Booleanos (True/false, 0/1)
+#Boleanos
 mayor_edad = True
 tiene_bigote = False
 
-#  Números enteros o decimales (int o float)
+#Números -> Enteros y decimales
 mayoria_edad = 18
 altura = 1.72
 
-# Strings (texto)
+#Strings
 frase = "Anita lava la tina"
 
-# Listas
+# Tipos de datos compuestos
+#Arrays
 lista_vacia = []
 gatos = ["Garfield", "Silvestre", "Hello Kitty"]
 print(gatos[2]) #Imprime: Silvestre
@@ -26,12 +27,13 @@ print(gatos) #Imprime: ['Garfield', 'Tom', 'Hello Kitty']
 gatos.pop(1)
 print(gatos) #Imprime: ['Garfield', 'Hello Kitty']
 
-# Tuplas 
+
+#Tuplas
 perro = ("Scooby Doo", "Gran Danés", "Scooby Galletas", 7)
 print(perro[0]) #Imprime: Scooby Doo
 perro[2] = "comida de perro" #ERROR: Las tuplas no pueden ser modificadas (TypeError: 'tuple' object does not support item assignment)
 
-# Diccionarios
+#Diccionarios
 diccionario_vacio = {}
 persona = {'nombre': 'Carmen', 'edad': 31, 'altura': 1.71, 'usa_lentes': False}
 persona['nombre'] = 'Valeria'  # Actualiza si el valor de la llave existente
@@ -47,3 +49,8 @@ print(persona)
 
 # salida: {'nombre': 'Carmen', 'edad': 31, 'usa_lentes': False, 'hobbies': ['jugar videojuegos', 'programación']} 
 
+#Funciones comunes
+print(type(3.1416)) #Imprime: <class 'float'>
+print(type(persona)) #Imprime <class 'dict'>
+print(len(persona)) #Imprime: 4 (la cantidad de pares de clave-valor)
+print(len("Me encanta programar")) #Imprime: 20

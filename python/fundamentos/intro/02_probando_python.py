@@ -10,15 +10,15 @@ para que te familiarices con la terminal y el flujo básico de un programa.
 print("¡Bienvenido a Python!")
 
 # Explicamos lo que haremos a continuación
-print("Ahora veremos un bucle que muestra los números del 1 al 10:")
+print("Ahora veremos un bucle que muestra los números del 1 al que quieras:")
 
 # Bucle for que recorre los números del 1 al 10
-num = int(input("Ingrese un número límite: ")) # int(input("")) hace que se transforme en número entero, como un parseInt() en JS.
+num = int(input("Ingrese un número límite: "))
 for num in range(1, num + 1):
     print(f"El valor actual de num es: {num}")
 
 # Definimos una lista de días laborables
-semana = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]
+semana = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sabado", "Domingo"]
 
 # Seleccionamos al azar un día de la semana
 dia = random.choice(semana)
@@ -29,8 +29,7 @@ if dia == "Lunes":
     print("¡Comenzamos la semana con buena energía!")
 elif dia == "Viernes":
     print("¡Cerramos la semana listos para un buen descanso!")
-elif dia == "Sábado" or dia == "Domingo":
-    print("Es fin de semana, disfruta!")
+elif dia == "Sabado" or dia == "Domingo":
+    print("Descansa todo lo que puedas!")
 else:
     print("¡Cada día es una nueva oportunidad de aprender!")
-    
