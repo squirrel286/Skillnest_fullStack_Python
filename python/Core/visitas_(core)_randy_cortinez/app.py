@@ -18,23 +18,6 @@ from flask import (
 
 app = Flask(__name__)
 
-
-# ==========================================================
-# SECRET KEY
-# ==========================================================
-#
-# Flask necesita una clave secreta para utilizar session.
-#
-# Esta clave permite firmar y proteger la información
-# asociada a la sesión.
-#
-# En una aplicación real no deberíamos dejar una clave
-# sensible escrita directamente en el código fuente.
-#
-# Para esta actividad utilizamos una clave únicamente
-# con fines educativos.
-# ==========================================================
-
 app.secret_key = "clave-secreta-visitas"
 
 
@@ -47,39 +30,23 @@ def index():
     """
     Muestra la cantidad de visitas del usuario.
 
-    Cada vez que se accede a esta ruta se considera
-    una nueva visita.
+    Una visita directa a esta ruta aumenta el contador en uno.
+    Si se llega mediante una acción de los botones, no se suma
+    una visita adicional.
     """
 
-    # ------------------------------------------------------
-    # COMPROBAR SI EXISTE EL CONTADOR
-    # ------------------------------------------------------
+    # Comprobar si la ruta fue llamada después de una acción.
+    no_contar_visita = session.pop("no_contar_visita", False)
 
-    if "visitas" in session:
+    if not no_contar_visita:
+        if "visitas" in session:
+            session["visitas"] += 1
+        else:
+            session["visitas"] = 1
 
-        # Si ya existe, aumentamos una visita.
-
-        session["visitas"] += 1
-
-    else:
-
-        # Si no existe, inicializamos el contador.
-
-        session["visitas"] = 1
-
-
-    # ------------------------------------------------------
-    # INICIALIZAR CONTADOR DE REINICIOS
-    # ------------------------------------------------------
-
+    # Inicializar el contador de reinicios.
     if "reinicios" not in session:
-
         session["reinicios"] = 0
-
-
-    # ------------------------------------------------------
-    # ENVIAR INFORMACIÓN A LA PLANTILLA
-    # ------------------------------------------------------
 
     return render_template(
         "index.html",
@@ -95,22 +62,16 @@ def index():
 @app.route("/sumar_dos")
 def sumar_dos():
     """
-    Aumenta el contador de visitas en dos unidades.
+    Aumenta el contador de visitas exactamente en dos unidades.
     """
 
-    # Si no existe el contador, lo inicializamos.
-
     if "visitas" not in session:
-
         session["visitas"] = 0
-
-
-    # Aumentamos la cantidad en dos.
 
     session["visitas"] += 2
 
-
-    # Volvemos a la página principal.
+    # Evitar que el redirect a index sume otra visita.
+    session["no_contar_visita"] = True
 
     return redirect(url_for("index"))
 
@@ -122,31 +83,17 @@ def sumar_dos():
 @app.route("/reiniciar")
 def reiniciar():
     """
-    Reinicia el contador de visitas.
-
-    Además registra que se realizó un reinicio.
+    Reinicia el contador de visitas y registra el reinicio.
     """
 
-    # ------------------------------------------------------
-    # ASEGURAR QUE EXISTA EL CONTADOR DE REINICIOS
-    # ------------------------------------------------------
-
     if "reinicios" not in session:
-
         session["reinicios"] = 0
 
-
-    # Registrar un nuevo reinicio.
-
     session["reinicios"] += 1
-
-
-    # Reiniciar contador de visitas.
-
     session["visitas"] = 0
 
-
-    # Volver a la página principal.
+    # Evitar que el redirect a index convierta 0 en 1.
+    session["no_contar_visita"] = True
 
     return redirect(url_for("index"))
 
@@ -158,38 +105,25 @@ def reiniciar():
 @app.route("/sumar", methods=["POST"])
 def sumar():
     """
-    Recibe una cantidad desde un formulario
-    y la agrega al contador de visitas.
+    Agrega al contador la cantidad enviada desde el formulario.
     """
 
-    # ------------------------------------------------------
-    # OBTENER INFORMACIÓN DEL FORMULARIO
-    # ------------------------------------------------------
+    try:
+        cantidad = int(request.form.get("cantidad", 0))
+    except ValueError:
+        cantidad = 0
 
-    cantidad = int(
-        request.form["cantidad"]
-    )
-
-
-    # ------------------------------------------------------
-    # COMPROBAR QUE EXISTA EL CONTADOR
-    # ------------------------------------------------------
+    # Solo aceptar cantidades positivas.
+    if cantidad < 1:
+        return redirect(url_for("index"))
 
     if "visitas" not in session:
-
         session["visitas"] = 0
-
-
-    # ------------------------------------------------------
-    # SUMAR CANTIDAD
-    # ------------------------------------------------------
 
     session["visitas"] += cantidad
 
-
-    # ------------------------------------------------------
-    # REDIRECCIONAR
-    # ------------------------------------------------------
+    # Evitar que el redirect a index sume otra visita.
+    session["no_contar_visita"] = True
 
     return redirect(url_for("index"))
 
@@ -201,17 +135,13 @@ def sumar():
 @app.route("/destruir_sesion")
 def destruir_sesion():
     """
-    Elimina todas las propiedades almacenadas
-    en la sesión del usuario.
+    Elimina completamente la sesión del usuario.
     """
-
-    # Elimina completamente el contenido de session.
 
     session.clear()
 
-
-    # Volvemos al inicio.
-
+    # Después de destruir la sesión, el acceso a index
+    # debe contar como una nueva visita.
     return redirect(url_for("index"))
 
 
@@ -220,5 +150,4 @@ def destruir_sesion():
 # ==========================================================
 
 if __name__ == "__main__":
-
     app.run(debug=True)
