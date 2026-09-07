@@ -36,6 +36,6 @@ Es el corazón de la aplicación. Permite que los usuarios se inscriban en misio
 ---
 
 ## Autor
-**Danny**
+**Randy**
 Desarrollador Fullstack Python
-Contacto: dannyahg@gmail.com
+Contacto: randycortinez@liceovvh.cl
