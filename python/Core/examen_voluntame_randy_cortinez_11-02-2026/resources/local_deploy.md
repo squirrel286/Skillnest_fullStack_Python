@@ -53,7 +53,7 @@ git clone URL_DEL_REPOSITORIO
 Luego entra a la carpeta del proyecto:
 
 ```bash
-cd voluntame
+cd python/Core/examen_voluntame_randy_cortinez_11-02-2026
 ```
 
 También puedes comprobar que estás ubicado correctamente ejecutando:
@@ -301,10 +301,10 @@ Si las credenciales son correctas, deberías acceder a MySQL.
 
 VoluntaMe necesita una estructura de base de datos previamente creada para funcionar.
 
-El proyecto debe incluir un archivo similar a:
+El proyecto incluye el script:
 
 ```text
-voluntame_db_script.sql
+resources/DB/voluntame_db.sql
 ```
 
 Este archivo contiene las instrucciones SQL necesarias para crear el esquema y las tablas utilizadas por la aplicación.
@@ -318,7 +318,7 @@ Este archivo contiene las instrucciones SQL necesarias para crear el esquema y l
 3. Abre el archivo:
 
 ```text
-voluntame_db_script.sql
+resources/DB/voluntame_db.sql
 ```
 
 4. Revisa el contenido del script.
@@ -330,10 +330,16 @@ El script debería crear la base de datos y sus respectivas tablas.
 
 ## 7.2 Utilizando la terminal
 
-También puedes ejecutar el script directamente desde la consola:
+Primero crea la base de datos si todavía no existe:
 
 ```bash
-mysql -u root -p < voluntame_db_script.sql
+mysql -u root -p -e "CREATE DATABASE IF NOT EXISTS voluntame_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+```
+
+Después importa el script desde la raíz del proyecto:
+
+```bash
+mysql -u root -p voluntame_db < resources/DB/voluntame_db.sql
 ```
 
 Luego escribe la contraseña de MySQL cuando sea solicitada.
@@ -490,6 +496,13 @@ pipenv install -r requirements.txt
 Y luego inicia la aplicación mediante:
 
 ```bash
+
+En Windows, si `mysql` no está en el `PATH`, utiliza la ruta completa del cliente:
+
+```powershell
+& "C:\Program Files\MySQL\MySQL Server 9.0\bin\mysql.exe" -u root -p -e "CREATE DATABASE IF NOT EXISTS voluntame_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+& "C:\Program Files\MySQL\MySQL Server 9.0\bin\mysql.exe" -u root -p voluntame_db < resources/DB/voluntame_db.sql
+```
 pipenv run python run.py
 ```
 
@@ -503,6 +516,13 @@ Una vez dentro:
 
 ```bash
 python run.py
+```
+
+Si `.env` ya aparece como archivo versionado, `.gitignore` no basta. Retíralo del
+índice sin borrarlo de tu computador:
+
+```bash
+git rm --cached .env
 ```
 
 ---
@@ -555,7 +575,7 @@ significa que la aplicación está intentando conectarse a una base de datos que
 Ejecuta nuevamente:
 
 ```text
-voluntame_db_script.sql
+resources/DB/voluntame_db.sql
 ```
 
 y comprueba posteriormente:
@@ -659,7 +679,9 @@ voluntame/
 ├── Pipfile.lock
 ├── requirements.txt
 ├── run.py
-├── voluntame_db_script.sql
+├── resources/
+│   └── DB/
+│       └── voluntame_db.sql
 │
 ├── app/
 │   ├── ...
@@ -723,7 +745,7 @@ Pipfile.lock
 Una rutina recomendada es:
 
 ```bash
-cd voluntame
+cd python/Core/examen_voluntame_randy_cortinez_11-02-2026
 ```
 
 Luego:
@@ -746,7 +768,7 @@ Para una instalación completa, el flujo principal es:
 
 ```bash
 # 1. Entrar al proyecto
-cd voluntame
+cd python/Core/examen_voluntame_randy_cortinez_11-02-2026
 
 # 2. Instalar dependencias
 pipenv install -r requirements.txt
@@ -758,8 +780,9 @@ pipenv install -r requirements.txt
 #    MYSQL_PASSWORD
 #    MYSQL_DATABASE
 
-# 4. Crear la base de datos
-#    Ejecutar voluntame_db_script.sql
+# 4. Crear e importar la base de datos
+mysql -u root -p -e "CREATE DATABASE IF NOT EXISTS voluntame_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+mysql -u root -p voluntame_db < resources/DB/voluntame_db.sql
 
 # 5. Iniciar la aplicación
 pipenv run python run.py
