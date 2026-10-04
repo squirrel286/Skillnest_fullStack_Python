@@ -1,1 +1,0 @@
-# Archivo utilizado para identificar config como paquete Python.
